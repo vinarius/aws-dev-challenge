@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 
+import {CreateRecipeForm} from './components/create-recipe-form';
+
 function App() {
   return (
     <div className="App">
-      <p>My react application is working!</p>
+      <CreateRecipeForm />
     </div>
   );
 }
