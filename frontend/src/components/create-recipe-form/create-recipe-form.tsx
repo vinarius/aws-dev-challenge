@@ -1,8 +1,9 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useState, useContext} from 'react';
 
 import './create-recipe-form.css';
 
-import {measurements} from '../../models/measurements';
+import {measurements} from '../../models/enums';
+import {Context} from '../contextProvider/contextProvider';
 
 export const CreateRecipeForm = () => {
   const [recipeName, setRecipeName] = useState('');
@@ -32,6 +33,8 @@ export const CreateRecipeForm = () => {
     setIngredientAmount(parseFloat(event.target.value));
   };
 
+  const {myCounter} = useContext(Context);
+
   return (
     <div id="create-recipe-form-container">
       <form id="create-recipe-form" onSubmit={handleFormSubmit}>
@@ -39,11 +42,19 @@ export const CreateRecipeForm = () => {
         <input type="text" name="recipeName" onChange={handleRecipeNameChange} required />
 
         <div className="space"></div>
+        <div className="space"></div>
+
+        <p>myCounter: {myCounter}</p>
+
+        <div className="space"></div>
+        <div className="space"></div>
+
+        
 
         <div id="ingredient-row">
           <div>
             <label htmlFor="ingredient-list">Select an ingredient:</label>
-            <select className="form-dropdown" onChange={handleIngredientTypeChange}>
+            <select name="ingredient-list" className="form-dropdown" onChange={handleIngredientTypeChange}>
               <option value={measurements.CUP}>{measurements.CUP}</option>
               <option value={measurements.TABLESPOON}>{measurements.TABLESPOON}</option>
               <option value={measurements.TEASPOON}>{measurements.TEASPOON}</option>
@@ -51,7 +62,7 @@ export const CreateRecipeForm = () => {
           </div>
           <div>
             <label htmlFor="ingredient-amount">Enter an amount: </label>
-            <input type="number" onChange={handleIngredientAmountChange}></input>
+            <input name="ingredient-amount" type="number" onChange={handleIngredientAmountChange}></input>
           </div>
         </div>
 

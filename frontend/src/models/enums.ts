@@ -3,3 +3,7 @@ export enum measurements {
   TABLESPOON='Tbsp',
   TEASPOON='tsps'
 }
+
+export enum STATE_ACTIONS {
+  addToCounter='addToCounter'
+}
