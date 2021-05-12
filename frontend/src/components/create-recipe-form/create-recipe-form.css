@@ -1,0 +1,28 @@
+#create-recipe-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-top: 5rem;
+  margin-left: 5rem;
+}
+
+#create-recipe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-button {
+  width: 100px;
+}
+
+.form-dropdown {
+  width: 100px;
+}
+
+#ingredient-row {
+  display: flex;
+}
+
+.space {
+  height: 25px;
+}

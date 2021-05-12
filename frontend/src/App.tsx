@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {CreateRecipeForm} from './components/create-recipe-form';
+import {CreateRecipeForm} from './components/create-recipe-form/create-recipe-form';
 
 function App() {
   return (
