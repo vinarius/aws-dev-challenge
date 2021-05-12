@@ -1,14 +1,10 @@
-#create-recipe-form-container {
+.display-column {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  margin-top: 5rem;
-  margin-left: 5rem;
 }
 
-#create-recipe-form {
+.display-row {
   display: flex;
-  flex-direction: column;
 }
 
 .form-button {
@@ -19,10 +15,42 @@
   width: 100px;
 }
 
+#forms-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.ingredient-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: 2rem;
+  border: 1px solid #333;
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 15px 5px #444; 
+  box-shadow: 5px 5px 15px 5px #444;
+  padding: 2rem;
+}
+
+.added-ingredients-container {  
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: 2rem;
+  padding: 2rem;
+  
+}
+
 #ingredient-row {
   display: flex;
+  justify-content: space-around;
 }
 
 .space {
   height: 25px;
+}
+
+.text-input {
+  width: 200px;
 }

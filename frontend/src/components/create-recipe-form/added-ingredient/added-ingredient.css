@@ -1,0 +1,9 @@
+.ingredient-row {
+  display: flex;
+  width: 300px;
+}
+
+.remove-ingredient-button {
+  margin-left: 1rem;
+  border-radius: 7.5px;
+}
