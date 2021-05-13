@@ -1,8 +1,8 @@
 import {MouseEvent} from 'react';
 
-import {STATE_ACTIONS} from './enums';
+import {STATE_ACTION} from './enums';
 export interface IAction {
-  type: STATE_ACTIONS,
+  type: STATE_ACTION,
   payload?: any;
 };
 
@@ -16,5 +16,5 @@ export interface IAppState {
   addToCounter?: ()=>void;
   tempIngredientList: IIngredient[];
   addToTempIngredientList?: (ingredient: IIngredient)=>void;
-  removeFromTempIngredientList?: (event: MouseEvent)=>void;
+  removeFromTempIngredientList?: (name: string)=>void;
 }

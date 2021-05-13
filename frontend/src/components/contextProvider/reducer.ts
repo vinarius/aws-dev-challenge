@@ -1,13 +1,13 @@
-import { STATE_ACTIONS } from '../../models/enums';
+import { STATE_ACTION } from '../../models/enums';
 import {IAppState, IAction, IIngredient} from '../../models/interfaces';
 
 export const reducer = (state: IAppState, action: IAction) => {
   switch(action.type) {
-    case STATE_ACTIONS.addToCounter:
+    case STATE_ACTION.addToCounter:
       return addToCounter(state);
-    case STATE_ACTIONS.addToTempIngredientList:
+    case STATE_ACTION.addToTempIngredientList:
       return addToTempIngredientList(state, action.payload);
-    case STATE_ACTIONS.removeFromTempIngredientList:
+    case STATE_ACTION.removeFromTempIngredientList:
       return removeFromTempIngredientList(state, action.payload);
     default:
       return state;

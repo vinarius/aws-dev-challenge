@@ -8,7 +8,7 @@ interface IAddedIngredientProps {
   name: string;
   amount: number;
   measurementType: string;
-  removeIngredient?: (name: string) => void;
+  elementKey: number;
 }
 
 export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
@@ -18,9 +18,9 @@ export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
   } = useContext(Context);
 
   return (
-    <div className="ingredient-row">
+    <div className="ingredient-row" key={props.elementKey}>
       <p>{`${props.amount} ${props.measurementType} ${props.name}`}</p>
-      <button className="remove-ingredient-button" onClick={removeFromTempIngredientList}>X</button>
+      <button className="remove-ingredient-button" onClick={()=>{removeFromTempIngredientList?.(props.name)}}>X</button>
     </div>
   );
 };

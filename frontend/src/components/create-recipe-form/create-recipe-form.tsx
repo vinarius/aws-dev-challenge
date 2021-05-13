@@ -2,13 +2,15 @@ import React, {ChangeEvent, useState, useContext} from 'react';
 
 import './create-recipe-form.css';
 
-import {measurements} from '../../models/enums';
+import {MEASUREMENT} from '../../models/enums';
 import {Context} from '../contextProvider/contextProvider';
 import {AddedIngredient} from './added-ingredient/added-ingredient';
+import mapEnums from '../../utilities/mapEnums';
 
 export const CreateRecipeForm = () => {
+  const defaultMeasurementType = MEASUREMENT.CUP;
   const [recipeName, setRecipeName] = useState('');
-  const [measurementType, setMeasurementType] = useState('');
+  const [measurementType, setMeasurementType] = useState(defaultMeasurementType);
   const [ingredientAmount, setIngredientAmount] = useState(0);
   const [ingredientName, setIngredientName] = useState('');
 
@@ -28,7 +30,6 @@ export const CreateRecipeForm = () => {
     addToTempIngredientList?.(newIngredient);
 
     event.target.reset();
-    setMeasurementType('');
     setIngredientAmount(0);
   };
 
@@ -37,7 +38,7 @@ export const CreateRecipeForm = () => {
   };
 
   const handleMeasurementTypeChange = (event: ChangeEvent<HTMLSelectElement>): void => {
-    setMeasurementType(event.target.value);
+    setMeasurementType(event.target.value as MEASUREMENT);
   };
 
   const handleIngredientAmountChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -57,13 +58,14 @@ export const CreateRecipeForm = () => {
 
       <div className="display-row">
         <form className="ingredient-form-container" onSubmit={handleFormSubmit}>
+          <h2>Add an ingredient</h2>
           <div id="ingredient-row">
             <div className="display-column">
               <label htmlFor="measurement-list">Measurement Type:</label>
-              <select name="measurement-list" className="form-dropdown" onChange={handleMeasurementTypeChange} required>
-                <option value={measurements.CUP}>{measurements.CUP}</option>
-                <option value={measurements.TABLESPOON}>{measurements.TABLESPOON}</option>
-                <option value={measurements.TEASPOON}>{measurements.TEASPOON}</option>
+              <select name="measurement-list" defaultValue={defaultMeasurementType} className="form-dropdown" onChange={handleMeasurementTypeChange} required>
+                {mapEnums(MEASUREMENT, (type: string, index: number) => {
+                  return <option value={type} key={index}>{type}</option>
+                })}
               </select>
             </div>
             <div className="display-column">
@@ -83,13 +85,20 @@ export const CreateRecipeForm = () => {
         </form>
         <div className="added-ingredients-container">
           <p>Ingredients:</p>
-          {tempIngredientList?.map(el => {
+          {tempIngredientList?.map((el, index) => {
             return <AddedIngredient
+              elementKey={index}
               {...el}
             />
           })}
         </div>
       </div>
+
+      <div>
+        My instruction section will go here
+      </div>
+
+      <button style={{width: '250px'}}>Sweet submit button</button>
     </div>
   );
 };

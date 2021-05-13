@@ -2,7 +2,7 @@ import React, {createContext, useReducer, PropsWithChildren, FC, ReactNode} from
 
 import {reducer} from './reducer';
 import {IAppState, IIngredient} from '../../models/interfaces';
-import { STATE_ACTIONS } from '../../models/enums';
+import { STATE_ACTION } from '../../models/enums';
 
 const initialState: IAppState = {
   myCounter: 0,
@@ -21,21 +21,20 @@ export const ContextProvider: FC<ReactNode> = (props: PropsWithChildren<any>) =>
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCounter = () => {
-    dispatch({type: STATE_ACTIONS.addToCounter});
+    dispatch({type: STATE_ACTION.addToCounter});
   };
 
   const addToTempIngredientList = (ingredient: IIngredient) => {
     dispatch({
-      type: STATE_ACTIONS.addToTempIngredientList,
+      type: STATE_ACTION.addToTempIngredientList,
       payload: ingredient
     })
   };
 
-  const removeFromTempIngredientList = (event: MouseEvent) => {
-    console.log('event:', event);
+  const removeFromTempIngredientList = (name: string) => {
     dispatch({
-      type: STATE_ACTIONS.removeFromTempIngredientList,
-      payload: 'asdf'
+      type: STATE_ACTION.removeFromTempIngredientList,
+      payload: name
     })
   };
 
