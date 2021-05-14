@@ -13,6 +13,7 @@ import { IRecipe } from '../../models/interfaces';
 export const CreateRecipeForm = () => {
   const defaultMeasurementType = MEASUREMENT.CUP;
   const [recipeName, setRecipeName] = useState('');
+  const [tempRecipeName, setTempRecipeName] = useState('');
   const [measurementType, setMeasurementType] = useState(defaultMeasurementType);
   const [ingredientAmount, setIngredientAmount] = useState(0);
   const [ingredientName, setIngredientName] = useState('');
@@ -29,7 +30,11 @@ export const CreateRecipeForm = () => {
 
   const handleRecipeNameFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log('recipe name:', event.target.value);
+
+    setTempRecipeName(recipeName);
+
+    setRecipeName('');
+    event.target.reset();
   };
 
   const handleIngredientFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
@@ -77,7 +82,7 @@ export const CreateRecipeForm = () => {
 
   const handleCreateRecipe = (): void => {
     const newRecipe: IRecipe = {
-      name: recipeName,
+      name: tempRecipeName,
       ingredients: [...tempIngredientList],
       instructions: [...tempInstructionList]
     };
@@ -109,7 +114,7 @@ export const CreateRecipeForm = () => {
 
         <div className="added-temp-container">
           <p className="temp-title">Recipe name:</p>
-          <p>{recipeName}</p>
+          <p>{tempRecipeName}</p>
         </div>
       </div>
       
