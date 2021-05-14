@@ -21,7 +21,7 @@
   margin: 1rem;
 }
 
-.ingredient-form-container {
+.form-container {
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -33,7 +33,7 @@
   padding: 2rem;
 }
 
-.added-ingredients-container {  
+.added-temp-container {  
   display: flex;
   flex-direction: column;
   width: 350px;
@@ -53,4 +53,12 @@
 
 .text-input {
   width: 200px;
+}
+
+.temp-title {
+  margin-bottom: 1rem;
+}
+
+.center-title {
+  align-self: center;
 }

@@ -1,21 +1,19 @@
 import React, {FC, useContext, useState} from 'react';
 
-import './added-ingredient.css';
+import './added-instruction.css';
 
 import {Context} from '../../contextProvider/contextProvider';
 
-interface IAddedIngredientProps {
-  name: string;
-  amount: number;
-  measurementType: string;
+interface IAddedInstructionProps {
+  step: string;
   elementKey: number;
 }
 
-export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
+export const AddedInstruction: FC<IAddedInstructionProps> = (props) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const {
-    removeFromTempIngredientList
+    removeFromTempInstructionList
   } = useContext(Context);
 
   const handleMouseEnter = () => {
@@ -31,8 +29,8 @@ export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
 
   return (
     <div className={ingredientRowClasses} key={props.elementKey} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <p>{`${props.amount} ${props.measurementType} ${props.name}`}</p>
-      <button className={ingredientButtonClasses} onClick={()=>{removeFromTempIngredientList?.(props.name)}}>X</button>
+      <p>{`${props.elementKey + 1}. ${props.step}`}</p>
+      <button className={ingredientButtonClasses} onClick={()=>{removeFromTempInstructionList?.(props.step)}}>X</button>
     </div>
   );
 };

@@ -5,7 +5,10 @@ import './create-recipe-form.css';
 import {MEASUREMENT} from '../../models/enums';
 import {Context} from '../contextProvider/contextProvider';
 import {AddedIngredient} from './added-ingredient/added-ingredient';
+import {AddedInstruction} from './added-instruction/added-instruction';
+
 import mapEnums from '../../utilities/mapEnums';
+import { IRecipe } from '../../models/interfaces';
 
 export const CreateRecipeForm = () => {
   const defaultMeasurementType = MEASUREMENT.CUP;
@@ -13,13 +16,23 @@ export const CreateRecipeForm = () => {
   const [measurementType, setMeasurementType] = useState(defaultMeasurementType);
   const [ingredientAmount, setIngredientAmount] = useState(0);
   const [ingredientName, setIngredientName] = useState('');
+  const [instructionStep, setInstructionStep] = useState('');
 
   const {
     tempIngredientList,
-    addToTempIngredientList
+    tempInstructionList,
+    addToTempIngredientList,
+    addToTempInstructionList,
+    clearTempIngredientList,
+    clearTempInstructionList
   } = useContext(Context);
 
-  const handleFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
+  const handleRecipeNameFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    console.log('recipe name:', event.target.value);
+  };
+
+  const handleIngredientFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const newIngredient = {
       name: ingredientName,
@@ -49,16 +62,64 @@ export const CreateRecipeForm = () => {
     setIngredientName(event.target.value);
   };
 
+  const handleInstructionFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    addToTempInstructionList?.({
+      step: instructionStep
+    });
+    setInstructionStep('');
+    event.target.reset();
+  };
+
+  const handleInstructionChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInstructionStep(event.target.value);
+  };
+
+  const handleCreateRecipe = (): void => {
+    const newRecipe: IRecipe = {
+      name: recipeName,
+      ingredients: [...tempIngredientList],
+      instructions: [...tempInstructionList]
+    };
+
+    console.log('newRecipe:', newRecipe);
+
+    // TODO: fire post request to create api
+
+
+    clearTempIngredientList?.();
+    clearTempInstructionList?.();
+    setRecipeName('');
+  };
+
   return (
     <div id="forms-container">
-      <p>Create a new recipe</p>
+      <h1 className="center-title">Create a new recipe</h1>
       <div className="space"></div>
-      <p>Recipe Title</p>
-      <input type="text" className="text-input" name="recipeName" onChange={handleRecipeNameChange} required />
 
       <div className="display-row">
-        <form className="ingredient-form-container" onSubmit={handleFormSubmit}>
+        <form className="form-container" onSubmit={handleRecipeNameFormSubmit}>
+          <h2>Recipe Title</h2>
+          <input type="text" className="text-input" autoComplete="off" name="recipeName" onChange={handleRecipeNameChange} required />
+
+          <div className="space"></div>
+
+          <button className="form-button" type="submit">Add Name</button>
+        </form>
+
+        <div className="added-temp-container">
+          <p className="temp-title">Recipe name:</p>
+          <p>{recipeName}</p>
+        </div>
+      </div>
+      
+
+      <div className="display-row">
+        <form className="form-container" onSubmit={handleIngredientFormSubmit}>
           <h2>Add an ingredient</h2>
+
+          <div className="space"></div>
+
           <div id="ingredient-row">
             <div className="display-column">
               <label htmlFor="measurement-list">Measurement Type:</label>
@@ -77,14 +138,14 @@ export const CreateRecipeForm = () => {
           <div className="space"></div>
 
           <label htmlFor="ingredientName">Ingredient:</label>
-          <input type="text" className="text-input" name="ingredientName" onChange={handleIngredientNameChange} />
+          <input type="text" autoComplete="off" className="text-input" name="ingredientName" onChange={handleIngredientNameChange} />
 
           <div className="space"></div>
 
           <button className="form-button" type="submit">Add Ingredient</button>
         </form>
-        <div className="added-ingredients-container">
-          <p>Ingredients:</p>
+        <div className="added-temp-container">
+          <p className="temp-title">Ingredients:</p>
           {tempIngredientList?.map((el, index) => {
             return <AddedIngredient
               elementKey={index}
@@ -94,11 +155,33 @@ export const CreateRecipeForm = () => {
         </div>
       </div>
 
-      <div>
-        My instruction section will go here
+      <div className="display-row">
+        <form className="form-container" onSubmit={handleInstructionFormSubmit}>
+            <h2>Add to recipe instructions:</h2>
+
+            <div className="space"></div>
+
+            <label htmlFor="instructionStep">Instruction Step:</label>
+            <input type="text" autoComplete="off" className="text-input" name="instructionStep" onChange={handleInstructionChange} />
+
+            <div className="space"></div>
+
+            <button className="form-button" type="submit">Add Step</button>
+        </form>
+        <div className="added-temp-container">
+          <p className="temp-title">Instructions:</p>
+          {tempInstructionList?.map((el, index) => {
+            return <AddedInstruction
+              elementKey={index}
+              {...el}
+            />
+          })}
+        </div>
       </div>
 
-      <button style={{width: '250px'}}>Sweet submit button</button>
+      <div className="space"></div>
+
+      <button style={{width: '250px'}} onClick={()=>{handleCreateRecipe()}}>Sweet submit button</button>
     </div>
   );
 };

@@ -7,5 +7,9 @@ export enum MEASUREMENT {
 export enum STATE_ACTION {
   addToCounter='addToCounter',
   addToTempIngredientList='addToTempIngredientList',
-  removeFromTempIngredientList='removeFromTempIngredientList'
+  removeFromTempIngredientList='removeFromTempIngredientList',
+  clearTempIngredientList='clearTempIngredientList',
+  addToTempInstructionList='addToTempInstructionList',
+  removeFromTempInstructionList='removeFromTempInstructionList',
+  clearTempInstructionList='clearTempInstructionList'
 }
