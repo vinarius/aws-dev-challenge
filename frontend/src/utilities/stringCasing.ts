@@ -1,19 +1,33 @@
+/**
+ * @param string '1 cup brown sugar' 
+ * @returns '1 Cup Brown Sugar'
+ */
 export function toTitleCase(string: string): string {
   return string.split(' ').map(str => {
-    return `${str[0].toUpperCase()}${str.slice(1)}`
+    const firstLetter = str[0].toUpperCase();
+    const otherLetters = str.slice(1).split('').map(letter => letter.toLowerCase()).join('');
+    return `${firstLetter}${otherLetters}`
   }).join(' ');
 };
 
+
+/**
+ * @param string '1 cup brown sugar' 
+ * @returns '1 Cup brown sugar'
+ */
 export function toSentenceCase(string: string): string {
   const spaceSeparatedWords = string.split(' ');
   const alphaRegex = /[a-z]/i;
 
-  const wordIndex = spaceSeparatedWords.findIndex(word => alphaRegex.test(word));
-  if(wordIndex === -1) {
+  const firstWordIndex = spaceSeparatedWords.findIndex(word => alphaRegex.test(word));
+  if(firstWordIndex === -1) {
     return spaceSeparatedWords.join(' ');
   }
 
-  const firstWord = spaceSeparatedWords[wordIndex];
-  spaceSeparatedWords[wordIndex] = `${firstWord[0].toUpperCase()}${firstWord.slice(1)}`;
+  const firstWord = spaceSeparatedWords[firstWordIndex];
+  const firstLetter = firstWord[0].toUpperCase();
+  const otherLetters = firstWord.slice(1).split('').map(letter => letter.toLowerCase()).join('');
+  spaceSeparatedWords[firstWordIndex] = `${firstLetter}${otherLetters}`;
+  // TODO: do the rest of the words if words remain
   return spaceSeparatedWords.join(' ');
 };
