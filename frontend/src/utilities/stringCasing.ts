@@ -1,7 +1,19 @@
 export function toTitleCase(string: string): string {
-  const titleCasedString = string.split(' ').map(str => {
+  return string.split(' ').map(str => {
     return `${str[0].toUpperCase()}${str.slice(1)}`
-  });
+  }).join(' ');
+};
 
-  return titleCasedString.join(' ');
+export function toSentenceCase(string: string): string {
+  const spaceSeparatedWords = string.split(' ');
+  const alphaRegex = /[a-z]/i;
+
+  const wordIndex = spaceSeparatedWords.findIndex(word => alphaRegex.test(word));
+  if(wordIndex === -1) {
+    return spaceSeparatedWords.join(' ');
+  }
+
+  const firstWord = spaceSeparatedWords[wordIndex];
+  spaceSeparatedWords[wordIndex] = `${firstWord[0].toUpperCase()}${firstWord.slice(1)}`;
+  return spaceSeparatedWords.join(' ');
 };
