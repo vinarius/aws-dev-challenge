@@ -12,7 +12,7 @@ import { IRecipe } from '../../models/interfaces';
 
 export const CreateRecipeForm = () => {
   const defaultMeasurementType = MEASUREMENT.CUP;
-  const [recipeName, setRecipeName] = useState('');
+  const [inputRecipeName, setInputRecipeName] = useState('');
   const [tempRecipeName, setTempRecipeName] = useState('');
   const [measurementType, setMeasurementType] = useState(defaultMeasurementType);
   const [ingredientAmount, setIngredientAmount] = useState(0);
@@ -28,12 +28,12 @@ export const CreateRecipeForm = () => {
     clearTempInstructionList
   } = useContext(Context);
 
-  const handleRecipeNameFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
+  const handleinputRecipeNameFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    setTempRecipeName(recipeName);
+    setTempRecipeName(inputRecipeName);
 
-    setRecipeName('');
+    setInputRecipeName('');
     event.target.reset();
   };
 
@@ -51,8 +51,8 @@ export const CreateRecipeForm = () => {
     setIngredientAmount(0);
   };
 
-  const handleRecipeNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRecipeName(event.target.value);
+  const handleinputRecipeNameChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInputRecipeName(event.target.value);
   };
 
   const handleMeasurementTypeChange = (event: ChangeEvent<HTMLSelectElement>): void => {
@@ -94,7 +94,8 @@ export const CreateRecipeForm = () => {
 
     clearTempIngredientList?.();
     clearTempInstructionList?.();
-    setRecipeName('');
+    setInputRecipeName('');
+    setTempRecipeName('');
   };
 
   return (
@@ -103,9 +104,9 @@ export const CreateRecipeForm = () => {
       <div className="space"></div>
 
       <div className="display-row">
-        <form className="form-container" onSubmit={handleRecipeNameFormSubmit}>
+        <form className="form-container" onSubmit={handleinputRecipeNameFormSubmit}>
           <h2>Recipe Title</h2>
-          <input type="text" className="text-input" autoComplete="off" name="recipeName" onChange={handleRecipeNameChange} required />
+          <input type="text" className="text-input" autoComplete="off" name="inputRecipeName" onChange={handleinputRecipeNameChange} required />
 
           <div className="space"></div>
 
@@ -127,16 +128,16 @@ export const CreateRecipeForm = () => {
 
           <div id="ingredient-row">
             <div className="display-column">
+              <label htmlFor="ingredient-amount">Enter an amount:</label>
+              <input name="ingredient-amount" type="number" onChange={handleIngredientAmountChange} required />
+            </div>
+            <div className="display-column">
               <label htmlFor="measurement-list">Measurement Type:</label>
               <select name="measurement-list" defaultValue={defaultMeasurementType} className="form-dropdown" onChange={handleMeasurementTypeChange} required>
                 {mapEnums(MEASUREMENT, (type: string, index: number) => {
-                  return <option value={type} key={index}>{type}</option>
+                  return <option value={type} key={index.toString()}>{type}</option>
                 })}
               </select>
-            </div>
-            <div className="display-column">
-              <label htmlFor="ingredient-amount">Enter an amount:</label>
-              <input name="ingredient-amount" type="number" onChange={handleIngredientAmountChange} required />
             </div>
           </div>
 
@@ -153,6 +154,7 @@ export const CreateRecipeForm = () => {
           <p className="temp-title">Ingredients:</p>
           {tempIngredientList?.map((el, index) => {
             return <AddedIngredient
+              key={index.toString()}
               elementKey={index}
               {...el}
             />
@@ -177,6 +179,7 @@ export const CreateRecipeForm = () => {
           <p className="temp-title">Instructions:</p>
           {tempInstructionList?.map((el, index) => {
             return <AddedInstruction
+              key={index.toString()}
               elementKey={index}
               {...el}
             />
@@ -186,7 +189,7 @@ export const CreateRecipeForm = () => {
 
       <div className="space"></div>
 
-      <button style={{width: '250px'}} onClick={()=>{handleCreateRecipe()}}>Sweet submit button</button>
+      <button style={{width: '200px'}} onClick={()=>{handleCreateRecipe()}}>Sweet submit button</button>
     </div>
   );
 };

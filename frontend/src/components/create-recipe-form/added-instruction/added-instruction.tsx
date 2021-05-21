@@ -7,6 +7,7 @@ import {Context} from '../../contextProvider/contextProvider';
 interface IAddedInstructionProps {
   step: string;
   elementKey: number;
+  key: string;
 }
 
 export const AddedInstruction: FC<IAddedInstructionProps> = (props) => {
@@ -28,7 +29,7 @@ export const AddedInstruction: FC<IAddedInstructionProps> = (props) => {
   const ingredientRowClasses = `ingredient-row ${isHovering ? 'ingredient-row-border' : ''}`;
 
   return (
-    <div className={ingredientRowClasses} key={props.elementKey} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className={ingredientRowClasses} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <p>{`${props.elementKey + 1}. ${props.step}`}</p>
       <button className={ingredientButtonClasses} onClick={()=>{removeFromTempInstructionList?.(props.step)}}>X</button>
     </div>

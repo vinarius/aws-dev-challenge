@@ -9,6 +9,7 @@ interface IAddedIngredientProps {
   amount: number;
   measurementType: string;
   elementKey: number;
+  key: string;
 }
 
 export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
@@ -30,7 +31,7 @@ export const AddedIngredient: FC<IAddedIngredientProps> = (props) => {
   const ingredientRowClasses = `ingredient-row ${isHovering ? 'ingredient-row-border' : ''}`;
 
   return (
-    <div className={ingredientRowClasses} key={props.elementKey} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div className={ingredientRowClasses} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <p>{`${props.amount} ${props.measurementType} ${props.name}`}</p>
       <button className={ingredientButtonClasses} onClick={()=>{removeFromTempIngredientList?.(props.name)}}>X</button>
     </div>
