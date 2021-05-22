@@ -45,7 +45,7 @@ export const CreateRecipeForm = () => {
       measurementType
     };
 
-    addToTempIngredientList?.(newIngredient);
+    addToTempIngredientList!(newIngredient);
 
     event.target.reset();
     setIngredientAmount(0);
@@ -69,7 +69,7 @@ export const CreateRecipeForm = () => {
 
   const handleInstructionFormSubmit = (event: ChangeEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    addToTempInstructionList?.({
+    addToTempInstructionList!({
       step: instructionStep
     });
     setInstructionStep('');
@@ -92,10 +92,11 @@ export const CreateRecipeForm = () => {
     // TODO: fire post request to create api
 
 
-    clearTempIngredientList?.();
-    clearTempInstructionList?.();
+    clearTempIngredientList!();
+    clearTempInstructionList!();
     setInputRecipeName('');
     setTempRecipeName('');
+    setMeasurementType(MEASUREMENT.CUP);
   };
 
   return (
@@ -152,7 +153,7 @@ export const CreateRecipeForm = () => {
         </form>
         <div className="added-temp-container">
           <p className="temp-title">Ingredients:</p>
-          {tempIngredientList?.map((el, index) => {
+          {tempIngredientList.map((el, index) => {
             return <AddedIngredient
               key={index.toString()}
               elementKey={index}
@@ -177,7 +178,7 @@ export const CreateRecipeForm = () => {
         </form>
         <div className="added-temp-container">
           <p className="temp-title">Instructions:</p>
-          {tempInstructionList?.map((el, index) => {
+          {tempInstructionList.map((el, index) => {
             return <AddedInstruction
               key={index.toString()}
               elementKey={index}

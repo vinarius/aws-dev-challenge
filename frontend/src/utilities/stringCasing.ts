@@ -24,10 +24,12 @@ export function toSentenceCase(string: string): string {
     return spaceSeparatedWords.join(' ');
   }
 
-  const firstWord = spaceSeparatedWords[firstWordIndex];
-  const firstLetter = firstWord[0].toUpperCase();
-  const otherLetters = firstWord.slice(1).split('').map(letter => letter.toLowerCase()).join('');
-  spaceSeparatedWords[firstWordIndex] = `${firstLetter}${otherLetters}`;
-  // TODO: do the rest of the words if words remain
+  for(let i=firstWordIndex; i<spaceSeparatedWords.length; i++){
+    const targetWord = spaceSeparatedWords[i];
+    const firstLetter = i === firstWordIndex ? targetWord[0].toUpperCase() : targetWord[0].toLowerCase();
+    const otherLetters = targetWord.slice(1).split('').map(letter => letter.toLowerCase()).join('');
+    spaceSeparatedWords[i] = `${firstLetter}${otherLetters}`;
+  }
+
   return spaceSeparatedWords.join(' ');
 };
