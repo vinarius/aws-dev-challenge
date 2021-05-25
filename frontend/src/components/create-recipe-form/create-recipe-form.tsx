@@ -82,7 +82,7 @@ export const CreateRecipeForm = () => {
 
   const handleCreateRecipe = (): void => {
     const newRecipe: IRecipe = {
-      name: tempRecipeName,
+      recipeName: tempRecipeName,
       ingredients: [...tempIngredientList],
       instructions: [...tempInstructionList]
     };

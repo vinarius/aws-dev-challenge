@@ -15,7 +15,7 @@ export interface IInstructionStep {
 }
 
 export interface IRecipe {
-  name: string;
+  recipeName: string;
   ingredients: IIngredient[];
   instructions: IInstructionStep[];
 }
