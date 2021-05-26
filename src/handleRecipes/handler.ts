@@ -22,7 +22,11 @@ exports.handler = async (event) => {
   const queryResponse = await client.send(query);
 
   return {
-    statusCode: 200,
-    body: queryResponse
-  };
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {},
+    // "multiValueHeaders": { "headername": ["headervalue", "headervalue2", ...], ... },
+    "multiValueHeaders": {},
+    "body": queryResponse
+  }
 };
